@@ -1,0 +1,20 @@
+# Description: This file contains the links to the ABS API endpoints for the data that we are interested in.
+
+balance_of_payments_states: |
+  https://api.data.abs.gov.au/data/ABS,BOP_STATE,1.0.0/1....Q?startPeriod=2020-Q1&dimensionAtObservation=AllDimensions&format=jsondata
+
+
+export_imports: |
+  https://api.data.abs.gov.au/data/ABS,BOP_GOODS,1.0.0/...10.Q?startPeriod=2020-Q1&dimensionAtObservation=AllDimensions&format=jsondata
+
+general_balance_of_payments: |
+  https://api.data.abs.gov.au/data/ABS,BOP,1.0.0/1.100+110+120+130+170+180+1000+2000+4000+6000+8100+8110+8210+8305+8400+8450+8510+8520+8610+8620+8700+8710+8720+8750+8800+8805+8810+8815+8820+8825+8830+8835+8840+8845+8850+8855+8860+8865+8900.10.Q?startPeriod=2022-Q1&dimensionAtObservation=AllDimensions&format=jsondata
+
+
+merchandise_exports: |
+  https://api.data.abs.gov.au/data/ABS,MERCH_EXP,1.0.0/0+1+2+3+4+5+6+7+8+9+TOT.TOT.TOT.M?startPeriod=2000-01&dimensionAtObservation=AllDimensions&format=jsondata
+
+
+merchandise_imports: |
+  https://api.data.abs.gov.au/data/ABS,MERCH_IMP,1.0.0/0+1+2+3+4+5+6+7+8+9+TOT.TOT.TOT.M?startPeriod=2000-01&dimensionAtObservation=AllDimensions&format=jsondata
+

@@ -1,0 +1,352 @@
+MEASURE,DATA_ITEM,TSEST,FREQ,TIME_PERIOD,value
+Current Prices,Secondary income credits,Original,Quarterly,2022-Q1,2659
+Current Prices,Secondary income credits,Original,Quarterly,2022-Q2,2917
+Current Prices,Secondary income credits,Original,Quarterly,2022-Q3,3100
+Current Prices,Secondary income credits,Original,Quarterly,2022-Q4,3238
+Current Prices,Secondary income credits,Original,Quarterly,2023-Q1,3158
+Current Prices,Secondary income credits,Original,Quarterly,2023-Q2,3348
+Current Prices,Secondary income credits,Original,Quarterly,2023-Q3,3189
+Current Prices,Secondary income credits,Original,Quarterly,2023-Q4,3228
+Current Prices,Secondary income credits,Original,Quarterly,2024-Q1,3255
+Current Prices,"Capital account, Acquisitions/disposals of non-produced non-financial assets",Original,Quarterly,2022-Q1,2
+Current Prices,"Capital account, Acquisitions/disposals of non-produced non-financial assets",Original,Quarterly,2022-Q2,56
+Current Prices,"Capital account, Acquisitions/disposals of non-produced non-financial assets",Original,Quarterly,2022-Q3,-11
+Current Prices,"Capital account, Acquisitions/disposals of non-produced non-financial assets",Original,Quarterly,2022-Q4,-14
+Current Prices,"Capital account, Acquisitions/disposals of non-produced non-financial assets",Original,Quarterly,2023-Q1,-14
+Current Prices,"Capital account, Acquisitions/disposals of non-produced non-financial assets",Original,Quarterly,2023-Q2,-63
+Current Prices,"Capital account, Acquisitions/disposals of non-produced non-financial assets",Original,Quarterly,2023-Q3,-52
+Current Prices,"Capital account, Acquisitions/disposals of non-produced non-financial assets",Original,Quarterly,2023-Q4,-17
+Current Prices,"Capital account, Acquisitions/disposals of non-produced non-financial assets",Original,Quarterly,2024-Q1,181
+Current Prices,Primary income credits,Original,Quarterly,2022-Q1,20099
+Current Prices,Primary income credits,Original,Quarterly,2022-Q2,22939
+Current Prices,Primary income credits,Original,Quarterly,2022-Q3,22466
+Current Prices,Primary income credits,Original,Quarterly,2022-Q4,25372
+Current Prices,Primary income credits,Original,Quarterly,2023-Q1,22170
+Current Prices,Primary income credits,Original,Quarterly,2023-Q2,23127
+Current Prices,Primary income credits,Original,Quarterly,2023-Q3,24837
+Current Prices,Primary income credits,Original,Quarterly,2023-Q4,25332
+Current Prices,Primary income credits,Original,Quarterly,2024-Q1,25759
+Current Prices,"Financial account, Financial derivatives assets",Original,Quarterly,2022-Q1,48758
+Current Prices,"Financial account, Financial derivatives assets",Original,Quarterly,2022-Q2,75710
+Current Prices,"Financial account, Financial derivatives assets",Original,Quarterly,2022-Q3,117830
+Current Prices,"Financial account, Financial derivatives assets",Original,Quarterly,2022-Q4,96249
+Current Prices,"Financial account, Financial derivatives assets",Original,Quarterly,2023-Q1,89084
+Current Prices,"Financial account, Financial derivatives assets",Original,Quarterly,2023-Q2,69613
+Current Prices,"Financial account, Financial derivatives assets",Original,Quarterly,2023-Q3,75965
+Current Prices,"Financial account, Financial derivatives assets",Original,Quarterly,2023-Q4,152512
+Current Prices,"Financial account, Financial derivatives assets",Original,Quarterly,2024-Q1,154322
+Current Prices,Goods and services credits,Original,Quarterly,2022-Q1,146938
+Current Prices,Goods and services credits,Original,Quarterly,2022-Q2,173949
+Current Prices,Goods and services credits,Original,Quarterly,2022-Q3,170304
+Current Prices,Goods and services credits,Original,Quarterly,2022-Q4,179068
+Current Prices,Goods and services credits,Original,Quarterly,2023-Q1,171114
+Current Prices,Goods and services credits,Original,Quarterly,2023-Q2,165557
+Current Prices,Goods and services credits,Original,Quarterly,2023-Q3,163885
+Current Prices,Goods and services credits,Original,Quarterly,2023-Q4,171181
+Current Prices,Goods and services credits,Original,Quarterly,2024-Q1,163817
+Current Prices,"Financial account, Direct investment assets",Original,Quarterly,2022-Q1,-118032
+Current Prices,"Financial account, Direct investment assets",Original,Quarterly,2022-Q2,-12082
+Current Prices,"Financial account, Direct investment assets",Original,Quarterly,2022-Q3,-27733
+Current Prices,"Financial account, Direct investment assets",Original,Quarterly,2022-Q4,-17325
+Current Prices,"Financial account, Direct investment assets",Original,Quarterly,2023-Q1,-11094
+Current Prices,"Financial account, Direct investment assets",Original,Quarterly,2023-Q2,3508
+Current Prices,"Financial account, Direct investment assets",Original,Quarterly,2023-Q3,-11913
+Current Prices,"Financial account, Direct investment assets",Original,Quarterly,2023-Q4,-2853
+Current Prices,"Financial account, Direct investment assets",Original,Quarterly,2024-Q1,-10678
+Current Prices,"Financial account, Direct investment liabilities",Original,Quarterly,2022-Q1,62889
+Current Prices,"Financial account, Direct investment liabilities",Original,Quarterly,2022-Q2,6961
+Current Prices,"Financial account, Direct investment liabilities",Original,Quarterly,2022-Q3,32111
+Current Prices,"Financial account, Direct investment liabilities",Original,Quarterly,2022-Q4,-5691
+Current Prices,"Financial account, Direct investment liabilities",Original,Quarterly,2023-Q1,12815
+Current Prices,"Financial account, Direct investment liabilities",Original,Quarterly,2023-Q2,-2623
+Current Prices,"Financial account, Direct investment liabilities",Original,Quarterly,2023-Q3,11580
+Current Prices,"Financial account, Direct investment liabilities",Original,Quarterly,2023-Q4,27885
+Current Prices,"Financial account, Direct investment liabilities",Original,Quarterly,2024-Q1,26533
+Current Prices,Goods and services debits,Original,Quarterly,2022-Q1,-117901
+Current Prices,Goods and services debits,Original,Quarterly,2022-Q2,-128047
+Current Prices,Goods and services debits,Original,Quarterly,2022-Q3,-144144
+Current Prices,Goods and services debits,Original,Quarterly,2022-Q4,-145097
+Current Prices,Goods and services debits,Original,Quarterly,2023-Q1,-133041
+Current Prices,Goods and services debits,Original,Quarterly,2023-Q2,-139314
+Current Prices,Goods and services debits,Original,Quarterly,2023-Q3,-151328
+Current Prices,Goods and services debits,Original,Quarterly,2023-Q4,-147126
+Current Prices,Goods and services debits,Original,Quarterly,2024-Q1,-142320
+Current Prices,"Financial account, Financial derivatives liabilities",Original,Quarterly,2022-Q1,-51563
+Current Prices,"Financial account, Financial derivatives liabilities",Original,Quarterly,2022-Q2,-77484
+Current Prices,"Financial account, Financial derivatives liabilities",Original,Quarterly,2022-Q3,-111840
+Current Prices,"Financial account, Financial derivatives liabilities",Original,Quarterly,2022-Q4,-106218
+Current Prices,"Financial account, Financial derivatives liabilities",Original,Quarterly,2023-Q1,-94557
+Current Prices,"Financial account, Financial derivatives liabilities",Original,Quarterly,2023-Q2,-69852
+Current Prices,"Financial account, Financial derivatives liabilities",Original,Quarterly,2023-Q3,-67373
+Current Prices,"Financial account, Financial derivatives liabilities",Original,Quarterly,2023-Q4,-188307
+Current Prices,"Financial account, Financial derivatives liabilities",Original,Quarterly,2024-Q1,-161435
+Current Prices,Primary income,Original,Quarterly,2022-Q1,-26762
+Current Prices,Primary income,Original,Quarterly,2022-Q2,-25553
+Current Prices,Primary income,Original,Quarterly,2022-Q3,-35900
+Current Prices,Primary income,Original,Quarterly,2022-Q4,-23694
+Current Prices,Primary income,Original,Quarterly,2023-Q1,-31680
+Current Prices,Primary income,Original,Quarterly,2023-Q2,-17058
+Current Prices,Primary income,Original,Quarterly,2023-Q3,-26204
+Current Prices,Primary income,Original,Quarterly,2023-Q4,-17184
+Current Prices,Primary income,Original,Quarterly,2024-Q1,-25816
+Current Prices,"Financial account, Financial derivatives",Original,Quarterly,2022-Q1,-2805
+Current Prices,"Financial account, Financial derivatives",Original,Quarterly,2022-Q2,-1774
+Current Prices,"Financial account, Financial derivatives",Original,Quarterly,2022-Q3,5990
+Current Prices,"Financial account, Financial derivatives",Original,Quarterly,2022-Q4,-9969
+Current Prices,"Financial account, Financial derivatives",Original,Quarterly,2023-Q1,-5472
+Current Prices,"Financial account, Financial derivatives",Original,Quarterly,2023-Q2,-239
+Current Prices,"Financial account, Financial derivatives",Original,Quarterly,2023-Q3,8592
+Current Prices,"Financial account, Financial derivatives",Original,Quarterly,2023-Q4,-35795
+Current Prices,"Financial account, Financial derivatives",Original,Quarterly,2024-Q1,-7113
+Current Prices,Net errors and omissions,Original,Quarterly,2022-Q1,4919
+Current Prices,Net errors and omissions,Original,Quarterly,2022-Q2,-3931
+Current Prices,Net errors and omissions,Original,Quarterly,2022-Q3,3848
+Current Prices,Net errors and omissions,Original,Quarterly,2022-Q4,-637
+Current Prices,Net errors and omissions,Original,Quarterly,2023-Q1,5951
+Current Prices,Net errors and omissions,Original,Quarterly,2023-Q2,3531
+Current Prices,Net errors and omissions,Original,Quarterly,2023-Q3,4234
+Current Prices,Net errors and omissions,Original,Quarterly,2023-Q4,1645
+Current Prices,Net errors and omissions,Original,Quarterly,2024-Q1,-3396
+Current Prices,Secondary income,Original,Quarterly,2022-Q1,-1056
+Current Prices,Secondary income,Original,Quarterly,2022-Q2,-1192
+Current Prices,Secondary income,Original,Quarterly,2022-Q3,-112
+Current Prices,Secondary income,Original,Quarterly,2022-Q4,-20
+Current Prices,Secondary income,Original,Quarterly,2023-Q1,-684
+Current Prices,Secondary income,Original,Quarterly,2023-Q2,-865
+Current Prices,Secondary income,Original,Quarterly,2023-Q3,-555
+Current Prices,Secondary income,Original,Quarterly,2023-Q4,89
+Current Prices,Secondary income,Original,Quarterly,2024-Q1,-592
+Current Prices,Current account,Original,Quarterly,2022-Q1,1219
+Current Prices,Current account,Original,Quarterly,2022-Q2,19157
+Current Prices,Current account,Original,Quarterly,2022-Q3,-9852
+Current Prices,Current account,Original,Quarterly,2022-Q4,10257
+Current Prices,Current account,Original,Quarterly,2023-Q1,5709
+Current Prices,Current account,Original,Quarterly,2023-Q2,8321
+Current Prices,Current account,Original,Quarterly,2023-Q3,-14202
+Current Prices,Current account,Original,Quarterly,2023-Q4,6960
+Current Prices,Current account,Original,Quarterly,2024-Q1,-4911
+Current Prices,"Capital account credits, Capital transfers",Original,Quarterly,2022-Q1,0
+Current Prices,"Capital account credits, Capital transfers",Original,Quarterly,2022-Q2,0
+Current Prices,"Capital account credits, Capital transfers",Original,Quarterly,2022-Q3,0
+Current Prices,"Capital account credits, Capital transfers",Original,Quarterly,2022-Q4,0
+Current Prices,"Capital account credits, Capital transfers",Original,Quarterly,2023-Q1,0
+Current Prices,"Capital account credits, Capital transfers",Original,Quarterly,2023-Q2,0
+Current Prices,"Capital account credits, Capital transfers",Original,Quarterly,2023-Q3,0
+Current Prices,"Capital account credits, Capital transfers",Original,Quarterly,2023-Q4,0
+Current Prices,"Capital account credits, Capital transfers",Original,Quarterly,2024-Q1,0
+Current Prices,"Capital account debits, Capital transfers",Original,Quarterly,2022-Q1,-188
+Current Prices,"Capital account debits, Capital transfers",Original,Quarterly,2022-Q2,-267
+Current Prices,"Capital account debits, Capital transfers",Original,Quarterly,2022-Q3,-168
+Current Prices,"Capital account debits, Capital transfers",Original,Quarterly,2022-Q4,-115
+Current Prices,"Capital account debits, Capital transfers",Original,Quarterly,2023-Q1,-120
+Current Prices,"Capital account debits, Capital transfers",Original,Quarterly,2023-Q2,-139
+Current Prices,"Capital account debits, Capital transfers",Original,Quarterly,2023-Q3,-119
+Current Prices,"Capital account debits, Capital transfers",Original,Quarterly,2023-Q4,-130
+Current Prices,"Capital account debits, Capital transfers",Original,Quarterly,2024-Q1,-135
+Current Prices,"Financial account, Direct investment",Original,Quarterly,2022-Q1,-55143
+Current Prices,"Financial account, Direct investment",Original,Quarterly,2022-Q2,-5120
+Current Prices,"Financial account, Direct investment",Original,Quarterly,2022-Q3,4379
+Current Prices,"Financial account, Direct investment",Original,Quarterly,2022-Q4,-23016
+Current Prices,"Financial account, Direct investment",Original,Quarterly,2023-Q1,1721
+Current Prices,"Financial account, Direct investment",Original,Quarterly,2023-Q2,885
+Current Prices,"Financial account, Direct investment",Original,Quarterly,2023-Q3,-333
+Current Prices,"Financial account, Direct investment",Original,Quarterly,2023-Q4,25032
+Current Prices,"Financial account, Direct investment",Original,Quarterly,2024-Q1,15855
+Current Prices,"Financial account, Other investment",Original,Quarterly,2022-Q1,13488
+Current Prices,"Financial account, Other investment",Original,Quarterly,2022-Q2,-54911
+Current Prices,"Financial account, Other investment",Original,Quarterly,2022-Q3,-11333
+Current Prices,"Financial account, Other investment",Original,Quarterly,2022-Q4,6018
+Current Prices,"Financial account, Other investment",Original,Quarterly,2023-Q1,-5232
+Current Prices,"Financial account, Other investment",Original,Quarterly,2023-Q2,7970
+Current Prices,"Financial account, Other investment",Original,Quarterly,2023-Q3,8554
+Current Prices,"Financial account, Other investment",Original,Quarterly,2023-Q4,-3057
+Current Prices,"Financial account, Other investment",Original,Quarterly,2024-Q1,10094
+Current Prices,"Capital account debits, Gross acquisitions of non-produced non-financial assets",Original,Quarterly,2022-Q1,-4
+Current Prices,"Capital account debits, Gross acquisitions of non-produced non-financial assets",Original,Quarterly,2022-Q2,-12
+Current Prices,"Capital account debits, Gross acquisitions of non-produced non-financial assets",Original,Quarterly,2022-Q3,-11
+Current Prices,"Capital account debits, Gross acquisitions of non-produced non-financial assets",Original,Quarterly,2022-Q4,-14
+Current Prices,"Capital account debits, Gross acquisitions of non-produced non-financial assets",Original,Quarterly,2023-Q1,-14
+Current Prices,"Capital account debits, Gross acquisitions of non-produced non-financial assets",Original,Quarterly,2023-Q2,-63
+Current Prices,"Capital account debits, Gross acquisitions of non-produced non-financial assets",Original,Quarterly,2023-Q3,-52
+Current Prices,"Capital account debits, Gross acquisitions of non-produced non-financial assets",Original,Quarterly,2023-Q4,-20
+Current Prices,"Capital account debits, Gross acquisitions of non-produced non-financial assets",Original,Quarterly,2024-Q1,-28
+Current Prices,Capital and financial account,Original,Quarterly,2022-Q1,-6137
+Current Prices,Capital and financial account,Original,Quarterly,2022-Q2,-15225
+Current Prices,Capital and financial account,Original,Quarterly,2022-Q3,6004
+Current Prices,Capital and financial account,Original,Quarterly,2022-Q4,-9619
+Current Prices,Capital and financial account,Original,Quarterly,2023-Q1,-11660
+Current Prices,Capital and financial account,Original,Quarterly,2023-Q2,-11852
+Current Prices,Capital and financial account,Original,Quarterly,2023-Q3,9967
+Current Prices,Capital and financial account,Original,Quarterly,2023-Q4,-8605
+Current Prices,Capital and financial account,Original,Quarterly,2024-Q1,8307
+Current Prices,Services,Original,Quarterly,2022-Q1,-3070
+Current Prices,Services,Original,Quarterly,2022-Q2,-5917
+Current Prices,Services,Original,Quarterly,2022-Q3,-9401
+Current Prices,Services,Original,Quarterly,2022-Q4,-7243
+Current Prices,Services,Original,Quarterly,2023-Q1,-1756
+Current Prices,Services,Original,Quarterly,2023-Q2,-7787
+Current Prices,Services,Original,Quarterly,2023-Q3,-9034
+Current Prices,Services,Original,Quarterly,2023-Q4,-5407
+Current Prices,Services,Original,Quarterly,2024-Q1,-1320
+Current Prices,Capital account,Original,Quarterly,2022-Q1,-186
+Current Prices,Capital account,Original,Quarterly,2022-Q2,-211
+Current Prices,Capital account,Original,Quarterly,2022-Q3,-179
+Current Prices,Capital account,Original,Quarterly,2022-Q4,-129
+Current Prices,Capital account,Original,Quarterly,2023-Q1,-134
+Current Prices,Capital account,Original,Quarterly,2023-Q2,-202
+Current Prices,Capital account,Original,Quarterly,2023-Q3,-171
+Current Prices,Capital account,Original,Quarterly,2023-Q4,-147
+Current Prices,Capital account,Original,Quarterly,2024-Q1,46
+Current Prices,"Financial account, Portfolio investment liabilities",Original,Quarterly,2022-Q1,78551
+Current Prices,"Financial account, Portfolio investment liabilities",Original,Quarterly,2022-Q2,24720
+Current Prices,"Financial account, Portfolio investment liabilities",Original,Quarterly,2022-Q3,4206
+Current Prices,"Financial account, Portfolio investment liabilities",Original,Quarterly,2022-Q4,32449
+Current Prices,"Financial account, Portfolio investment liabilities",Original,Quarterly,2023-Q1,25098
+Current Prices,"Financial account, Portfolio investment liabilities",Original,Quarterly,2023-Q2,-15906
+Current Prices,"Financial account, Portfolio investment liabilities",Original,Quarterly,2023-Q3,20385
+Current Prices,"Financial account, Portfolio investment liabilities",Original,Quarterly,2023-Q4,52601
+Current Prices,"Financial account, Portfolio investment liabilities",Original,Quarterly,2024-Q1,33589
+Current Prices,Goods,Original,Quarterly,2022-Q1,32107
+Current Prices,Goods,Original,Quarterly,2022-Q2,51819
+Current Prices,Goods,Original,Quarterly,2022-Q3,35561
+Current Prices,Goods,Original,Quarterly,2022-Q4,41214
+Current Prices,Goods,Original,Quarterly,2023-Q1,39829
+Current Prices,Goods,Original,Quarterly,2023-Q2,34030
+Current Prices,Goods,Original,Quarterly,2023-Q3,21591
+Current Prices,Goods,Original,Quarterly,2023-Q4,29462
+Current Prices,Goods,Original,Quarterly,2024-Q1,22817
+Current Prices,Goods credits,Original,Quarterly,2022-Q1,131196
+Current Prices,Goods credits,Original,Quarterly,2022-Q2,157444
+Current Prices,Goods credits,Original,Quarterly,2022-Q3,150507
+Current Prices,Goods credits,Original,Quarterly,2022-Q4,155668
+Current Prices,Goods credits,Original,Quarterly,2023-Q1,144450
+Current Prices,Goods credits,Original,Quarterly,2023-Q2,139936
+Current Prices,Goods credits,Original,Quarterly,2023-Q3,133830
+Current Prices,Goods credits,Original,Quarterly,2023-Q4,140935
+Current Prices,Goods credits,Original,Quarterly,2024-Q1,132128
+Current Prices,Services credits,Original,Quarterly,2022-Q1,15742
+Current Prices,Services credits,Original,Quarterly,2022-Q2,16505
+Current Prices,Services credits,Original,Quarterly,2022-Q3,19797
+Current Prices,Services credits,Original,Quarterly,2022-Q4,23400
+Current Prices,Services credits,Original,Quarterly,2023-Q1,26664
+Current Prices,Services credits,Original,Quarterly,2023-Q2,25621
+Current Prices,Services credits,Original,Quarterly,2023-Q3,30055
+Current Prices,Services credits,Original,Quarterly,2023-Q4,30246
+Current Prices,Services credits,Original,Quarterly,2024-Q1,31689
+Current Prices,"Capital account credits, Gross disposals of non-produced non-financial assets",Original,Quarterly,2022-Q1,6
+Current Prices,"Capital account credits, Gross disposals of non-produced non-financial assets",Original,Quarterly,2022-Q2,68
+Current Prices,"Capital account credits, Gross disposals of non-produced non-financial assets",Original,Quarterly,2022-Q3,0
+Current Prices,"Capital account credits, Gross disposals of non-produced non-financial assets",Original,Quarterly,2022-Q4,0
+Current Prices,"Capital account credits, Gross disposals of non-produced non-financial assets",Original,Quarterly,2023-Q1,0
+Current Prices,"Capital account credits, Gross disposals of non-produced non-financial assets",Original,Quarterly,2023-Q2,0
+Current Prices,"Capital account credits, Gross disposals of non-produced non-financial assets",Original,Quarterly,2023-Q3,0
+Current Prices,"Capital account credits, Gross disposals of non-produced non-financial assets",Original,Quarterly,2023-Q4,3
+Current Prices,"Capital account credits, Gross disposals of non-produced non-financial assets",Original,Quarterly,2024-Q1,209
+Current Prices,Financial account,Original,Quarterly,2022-Q1,-5951
+Current Prices,Financial account,Original,Quarterly,2022-Q2,-15014
+Current Prices,Financial account,Original,Quarterly,2022-Q3,6183
+Current Prices,Financial account,Original,Quarterly,2022-Q4,-9490
+Current Prices,Financial account,Original,Quarterly,2023-Q1,-11526
+Current Prices,Financial account,Original,Quarterly,2023-Q2,-11650
+Current Prices,Financial account,Original,Quarterly,2023-Q3,10138
+Current Prices,Financial account,Original,Quarterly,2023-Q4,-8458
+Current Prices,Financial account,Original,Quarterly,2024-Q1,8261
+Current Prices,"Financial account, Other investment assets",Original,Quarterly,2022-Q1,-25333
+Current Prices,"Financial account, Other investment assets",Original,Quarterly,2022-Q2,-37307
+Current Prices,"Financial account, Other investment assets",Original,Quarterly,2022-Q3,-5374
+Current Prices,"Financial account, Other investment assets",Original,Quarterly,2022-Q4,14930
+Current Prices,"Financial account, Other investment assets",Original,Quarterly,2023-Q1,5865
+Current Prices,"Financial account, Other investment assets",Original,Quarterly,2023-Q2,25214
+Current Prices,"Financial account, Other investment assets",Original,Quarterly,2023-Q3,-1676
+Current Prices,"Financial account, Other investment assets",Original,Quarterly,2023-Q4,11309
+Current Prices,"Financial account, Other investment assets",Original,Quarterly,2024-Q1,9313
+Current Prices,Secondary income debits,Original,Quarterly,2022-Q1,-3715
+Current Prices,Secondary income debits,Original,Quarterly,2022-Q2,-4109
+Current Prices,Secondary income debits,Original,Quarterly,2022-Q3,-3212
+Current Prices,Secondary income debits,Original,Quarterly,2022-Q4,-3258
+Current Prices,Secondary income debits,Original,Quarterly,2023-Q1,-3842
+Current Prices,Secondary income debits,Original,Quarterly,2023-Q2,-4213
+Current Prices,Secondary income debits,Original,Quarterly,2023-Q3,-3744
+Current Prices,Secondary income debits,Original,Quarterly,2023-Q4,-3139
+Current Prices,Secondary income debits,Original,Quarterly,2024-Q1,-3847
+Current Prices,"Financial account, Portfolio investment assets",Original,Quarterly,2022-Q1,-39443
+Current Prices,"Financial account, Portfolio investment assets",Original,Quarterly,2022-Q2,22533
+Current Prices,"Financial account, Portfolio investment assets",Original,Quarterly,2022-Q3,4663
+Current Prices,"Financial account, Portfolio investment assets",Original,Quarterly,2022-Q4,-14016
+Current Prices,"Financial account, Portfolio investment assets",Original,Quarterly,2023-Q1,-24842
+Current Prices,"Financial account, Portfolio investment assets",Original,Quarterly,2023-Q2,-4469
+Current Prices,"Financial account, Portfolio investment assets",Original,Quarterly,2023-Q3,-27684
+Current Prices,"Financial account, Portfolio investment assets",Original,Quarterly,2023-Q4,-47481
+Current Prices,"Financial account, Portfolio investment assets",Original,Quarterly,2024-Q1,-41937
+Current Prices,Primary income debits,Original,Quarterly,2022-Q1,-46861
+Current Prices,Primary income debits,Original,Quarterly,2022-Q2,-48493
+Current Prices,Primary income debits,Original,Quarterly,2022-Q3,-58366
+Current Prices,Primary income debits,Original,Quarterly,2022-Q4,-49066
+Current Prices,Primary income debits,Original,Quarterly,2023-Q1,-53850
+Current Prices,Primary income debits,Original,Quarterly,2023-Q2,-40185
+Current Prices,Primary income debits,Original,Quarterly,2023-Q3,-51041
+Current Prices,Primary income debits,Original,Quarterly,2023-Q4,-42516
+Current Prices,Primary income debits,Original,Quarterly,2024-Q1,-51575
+Current Prices,"Financial account, Portfolio investment",Original,Quarterly,2022-Q1,39108
+Current Prices,"Financial account, Portfolio investment",Original,Quarterly,2022-Q2,47253
+Current Prices,"Financial account, Portfolio investment",Original,Quarterly,2022-Q3,8869
+Current Prices,"Financial account, Portfolio investment",Original,Quarterly,2022-Q4,18433
+Current Prices,"Financial account, Portfolio investment",Original,Quarterly,2023-Q1,256
+Current Prices,"Financial account, Portfolio investment",Original,Quarterly,2023-Q2,-20376
+Current Prices,"Financial account, Portfolio investment",Original,Quarterly,2023-Q3,-7300
+Current Prices,"Financial account, Portfolio investment",Original,Quarterly,2023-Q4,5120
+Current Prices,"Financial account, Portfolio investment",Original,Quarterly,2024-Q1,-8349
+Current Prices,Goods and services,Original,Quarterly,2022-Q1,29037
+Current Prices,Goods and services,Original,Quarterly,2022-Q2,45902
+Current Prices,Goods and services,Original,Quarterly,2022-Q3,26160
+Current Prices,Goods and services,Original,Quarterly,2022-Q4,33971
+Current Prices,Goods and services,Original,Quarterly,2023-Q1,38073
+Current Prices,Goods and services,Original,Quarterly,2023-Q2,26243
+Current Prices,Goods and services,Original,Quarterly,2023-Q3,12557
+Current Prices,Goods and services,Original,Quarterly,2023-Q4,24055
+Current Prices,Goods and services,Original,Quarterly,2024-Q1,21497
+Current Prices,Services debits,Original,Quarterly,2022-Q1,-18812
+Current Prices,Services debits,Original,Quarterly,2022-Q2,-22422
+Current Prices,Services debits,Original,Quarterly,2022-Q3,-29198
+Current Prices,Services debits,Original,Quarterly,2022-Q4,-30643
+Current Prices,Services debits,Original,Quarterly,2023-Q1,-28420
+Current Prices,Services debits,Original,Quarterly,2023-Q2,-33408
+Current Prices,Services debits,Original,Quarterly,2023-Q3,-39089
+Current Prices,Services debits,Original,Quarterly,2023-Q4,-35653
+Current Prices,Services debits,Original,Quarterly,2024-Q1,-33009
+Current Prices,"Financial account, Other investment liabilities",Original,Quarterly,2022-Q1,38820
+Current Prices,"Financial account, Other investment liabilities",Original,Quarterly,2022-Q2,-17604
+Current Prices,"Financial account, Other investment liabilities",Original,Quarterly,2022-Q3,-5959
+Current Prices,"Financial account, Other investment liabilities",Original,Quarterly,2022-Q4,-8912
+Current Prices,"Financial account, Other investment liabilities",Original,Quarterly,2023-Q1,-11097
+Current Prices,"Financial account, Other investment liabilities",Original,Quarterly,2023-Q2,-17244
+Current Prices,"Financial account, Other investment liabilities",Original,Quarterly,2023-Q3,10231
+Current Prices,"Financial account, Other investment liabilities",Original,Quarterly,2023-Q4,-14366
+Current Prices,"Financial account, Other investment liabilities",Original,Quarterly,2024-Q1,781
+Current Prices,Goods debits,Original,Quarterly,2022-Q1,-99089
+Current Prices,Goods debits,Original,Quarterly,2022-Q2,-105625
+Current Prices,Goods debits,Original,Quarterly,2022-Q3,-114946
+Current Prices,Goods debits,Original,Quarterly,2022-Q4,-114454
+Current Prices,Goods debits,Original,Quarterly,2023-Q1,-104621
+Current Prices,Goods debits,Original,Quarterly,2023-Q2,-105906
+Current Prices,Goods debits,Original,Quarterly,2023-Q3,-112239
+Current Prices,Goods debits,Original,Quarterly,2023-Q4,-111473
+Current Prices,Goods debits,Original,Quarterly,2024-Q1,-109311
+Current Prices,"Capital account, Capital transfers",Original,Quarterly,2022-Q1,-188
+Current Prices,"Capital account, Capital transfers",Original,Quarterly,2022-Q2,-267
+Current Prices,"Capital account, Capital transfers",Original,Quarterly,2022-Q3,-168
+Current Prices,"Capital account, Capital transfers",Original,Quarterly,2022-Q4,-115
+Current Prices,"Capital account, Capital transfers",Original,Quarterly,2023-Q1,-120
+Current Prices,"Capital account, Capital transfers",Original,Quarterly,2023-Q2,-139
+Current Prices,"Capital account, Capital transfers",Original,Quarterly,2023-Q3,-119
+Current Prices,"Capital account, Capital transfers",Original,Quarterly,2023-Q4,-130
+Current Prices,"Capital account, Capital transfers",Original,Quarterly,2024-Q1,-135
+Current Prices,"Financial account, Reserve assets",Original,Quarterly,2022-Q1,-599
+Current Prices,"Financial account, Reserve assets",Original,Quarterly,2022-Q2,-462
+Current Prices,"Financial account, Reserve assets",Original,Quarterly,2022-Q3,-1721
+Current Prices,"Financial account, Reserve assets",Original,Quarterly,2022-Q4,-956
+Current Prices,"Financial account, Reserve assets",Original,Quarterly,2023-Q1,-2798
+Current Prices,"Financial account, Reserve assets",Original,Quarterly,2023-Q2,110
+Current Prices,"Financial account, Reserve assets",Original,Quarterly,2023-Q3,624
+Current Prices,"Financial account, Reserve assets",Original,Quarterly,2023-Q4,242
+Current Prices,"Financial account, Reserve assets",Original,Quarterly,2024-Q1,-2227
