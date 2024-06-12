@@ -3,6 +3,7 @@ import os
 import requests as re 
 import yaml
 from requests.exceptions import JSONDecodeError
+import geopy
 
 STATE_BALANCE_PAYMENTS='balance_of_payments_states'
 GENERAL_BALANCE_PAYMENTS='general_balance_of_payments'
@@ -62,6 +63,43 @@ def structure_content(content):
         print(f'Key not found: {e}')
         return pd.DataFrame()
 
+def add_state_geo_codes(dataframe,column_name):
+    try:
+        geolocator=geopy.Nominatim(user_agent='open_data_app')
+        dataframe['latitude']=None
+        dataframe['longitude']=None
+        for i in range(len(dataframe)):
+            location=geolocator.geocode(dataframe[column_name][i])
+            if location is not None:
+                dataframe.loc[i,'latitude']=location.latitude
+                dataframe.loc[i,'longitude']=location.longitude
+    except Exception as e:
+        print(e)
+        static_code={
+            'New South Wales': '-33.8688,151.2093',
+            'Victoria': '-37.8136,144.9631',
+            'Queensland': '-27.4698,153.0251',
+            'South Australia': '-34.9285,138.6007',
+            'Western Australia': '-31.9505,115.8605',
+            'Tasmania': '-42.8821,147.3272',
+            'Northern Territory': '-12.4634,130.8456',
+            'Australian Capital Territory': '-35.2809,149.1300',
+            'Australia': '-25.2744,133.7751'
+        }
+        for i in range(len(dataframe)):
+            state_name=dataframe[column_name].iloc[i]
+            if state_name in static_code.keys():
+                dataframe.loc[i,'latitude']=static_code[state_name].split(',')[0]
+                dataframe.loc[i,'longitude']=static_code[state_name].split(',')[1]
+            else:
+                print(f'No coordinates found for {state_name}')
+  
+
+        return dataframe
+
+     
+
+
 def save_data(data,directory=None,filename=None):
     path=filepath(directory,filename)
     try:
@@ -78,7 +116,10 @@ def main():
         config=load_config('links.yaml',query)
         data=get_abs_data(config)
         data=structure_content(data)
-        save_data(data,'data',f'{query}.csv')    
+        if query==STATE_BALANCE_PAYMENTS:
+            data=add_state_geo_codes(data,'REGION')
+        save_data(data,'data',f'{query}.csv') 
+
 
 if __name__=='__main__':
     main()

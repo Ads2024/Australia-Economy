@@ -6,7 +6,9 @@ import plotly.express as px
 import plotly.graph_objects as go
 from mitosheet.streamlit.v1 import spreadsheet
 import plotly.figure_factory as ff
-import geopy
+import base64
+ 
+
 
 def data_path(directory=None, filename=None):
     if directory is None and filename is not None:
@@ -24,11 +26,33 @@ def split_date(df,column):
         df['Quarter']=df[column].str.split('-').str[1]
     return df
 
+def load_css(file_name):
+    with open(os.path.join(os.getcwd(),file_name)) as f:
+        st.markdown(f'<style>{f.read()}</style>',unsafe_allow_html=True)
+
+def read_gif(file_name):
+    with open(os.path.join(os.getcwd(),file_name),'rb') as f:
+        contents=f.read()
+        data_url=base64.b64encode(contents).decode('utf-8')
+    return data_url
+
+
 st.set_page_config(page_title='Australian Trade Dashboard',page_icon='📈',layout='wide')
+gif=read_gif('assets/Aus_gif.webp')
+st.markdown(f''''
+    <div style="display: flex; justify-content: center;">
+        <img src="data:image/gif;base64,{gif}" style="width:10%;height:10%;object-fit:contain;">
+    </div>
+    ''',unsafe_allow_html=True)
 c1,c2=st.columns([0.07,1])
 c1.image('assets/australia.png',width=100)
 c2.title('Australian Trade Data')
 c2.markdown('Desc: This dashboard shows the trade data of Australia | socials: [LinkedIn](https://www.linkedin.com/in/adam-m-62a5b4168/)')
+
+dark_mode=st.toggle('Dark Mode')
+if dark_mode:
+    load_css('styles.css')
+    st.write('Dark mode enabled')
 
 
 with st.spinner('Loading data...'):
@@ -67,13 +91,13 @@ with st.spinner('Loading data...'):
          commodity=st.selectbox('Select Commodity',choices)
 
 
-    m1,m2,m3,m4=st.columns(4)
+    m2,m3,m4=st.columns(3)
     
-    m1.write('')
-    m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}")
+    
+    m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
     m3.metric('Total value',f"${data['value'].sum():,.0f}")
     m4.metric('Average value',f"${data['value'].mean():,.0f}")
-    m1.write('')
+    
     
     # load three plots based dataframe context
     p1,p2,p3=st.columns(3)
@@ -83,18 +107,18 @@ with st.spinner('Loading data...'):
             grouped=data.groupby(['Year','REGION']).sum().reset_index()
             fig_bar=px.bar(grouped,x='Year',y='value',color='REGION',title='Balance of Payments by State (Bar - Chart)')
             p1.plotly_chart(fig_bar)
-            fig_line=px.line(grouped,x='Year',y='value',color='REGION',title='Balance of Payments by State (Line - Chart)')
+            fig_line=px.line(grouped,x='Year',y='value',color='REGION',markers=True,title='Balance of Payments by State (Line - Chart)')
             p2.plotly_chart(fig_line)
             fig_pie=px.pie(data,values='value',names='REGION',title='Balance of Payments by State (Pie - Chart)')
             p3.plotly_chart(fig_pie)
         else:
             filtered_data=data[data['REGION']==region]
             state_grouped=filtered_data.groupby(['Year','REGION']).sum().reset_index()
-            fig_bar=px.bar(state_grouped,x='Year',y='value',color='REGION',title=f'Balance of Payments by State (Bar - Chart) for {region}')
+            fig_bar=px.bar(state_grouped,x='Year',y='value',color='REGION',title=f'Balance of Payments (Bar - Chart) for {region}')
             p1.plotly_chart(fig_bar)
-            fig_line=px.line(state_grouped,x='Year',y='value',color='REGION',title=f'Balance of Payments by State (Line - Chart) for {region}')
+            fig_line=px.line(state_grouped,x='Year',y='value',color='REGION',markers=True,title=f'Balance of Payments (Line - Chart) for {region}')
             p2.plotly_chart(fig_line)
-            fig_pie=px.pie(data,values='value',names='REGION',title=f'Balance of Payments by State (Pie - Chart)')
+            fig_pie=px.pie(data,values='value',names='REGION',title=f'Balance of Payments (Pie - Chart)')
             p3.plotly_chart(fig_pie)  
     
     elif data_file=='General Balance of Payments':
@@ -111,7 +135,7 @@ with st.spinner('Loading data...'):
             grouped=filtered_data.groupby(['Year','DATA_ITEM']).sum().reset_index()
             fig_bar=px.bar(grouped,x='Year',y='value',title=f'General Balance of Payments (Bar - Chart) for {data_item}')
             p1.plotly_chart(fig_bar)
-            fig_line=px.line(grouped,x='Year',y='value',title=f'General Balance of Payments (Line - Chart) for {data_item}')
+            fig_line=px.line(grouped,x='Year',y='value',markers=True,title=f'General Balance of Payments (Line - Chart) for {data_item}')
             p2.plotly_chart(fig_line)
             fig_pie=px.pie(data,values='value',names='Year',title='General Balance of Payments (Pie - Chart)')
             p3.plotly_chart(fig_pie)
@@ -119,20 +143,24 @@ with st.spinner('Loading data...'):
     elif data_file=='Export and Imports':
         if data_item=='All':
             grouped=data.groupby(['Year','EXP_IMP']).sum().reset_index()
+            pie=grouped.copy()
+            pie['value']=np.abs(pie['value'])
             fig_bar=px.bar(grouped,x='Year',y='value',color='EXP_IMP',title='Export and Imports (Bar - Chart)')
             p1.plotly_chart(fig_bar)
-            fig_line=px.line(grouped,x='Year',y='value',color='EXP_IMP',title='Export and Imports (Line - Chart)')
+            fig_line=px.line(grouped,x='Year',y='value',markers=True,color='EXP_IMP',title='Export and Imports (Line - Chart)')
             p2.plotly_chart(fig_line)
-            fig_pie=px.pie(data,values='value',names='EXP_IMP',title='Export and Imports (Pie - Chart)')
+            fig_pie=px.pie(pie,values='value',names='EXP_IMP',title='Export and Imports (Pie - Chart)')
             p3.plotly_chart(fig_pie)
         else:
             filtered_data=data[data['DATA_ITEM']==data_item]
             grouped=filtered_data.groupby(['Year','EXP_IMP']).sum().reset_index()
+            pie=grouped.copy()
+            pie['value']=np.abs(pie['value'])
             fig_bar=px.bar(grouped,x='Year',y='value',title=f'Export and Imports (Bar - Chart) for {data_item}')
             p1.plotly_chart(fig_bar)
-            fig_line=px.line(grouped,x='Year',y='value',title=f'Export and Imports (Line - Chart) for {data_item}')
+            fig_line=px.line(grouped,x='Year',y='value',markers=True,title=f'Export and Imports (Line - Chart) for {data_item}')
             p2.plotly_chart(fig_line)
-            fig_pie=px.pie(data,values='value',names='Year',title='Export and Imports (Pie - Chart)')
+            fig_pie=px.pie(pie,values='value',names='Year',title='Export and Imports (Pie - Chart)')
             p3.plotly_chart(fig_pie)
 
     elif data_file=='Merchandise Imports':
@@ -140,7 +168,7 @@ with st.spinner('Loading data...'):
             grouped=data.groupby(['Year','COMMODITY_SITC']).sum().reset_index()
             fig_bar=px.bar(grouped,x='Year',y='value',color='COMMODITY_SITC',title='Merchandise Imports (Bar - Chart)')
             p1.plotly_chart(fig_bar)
-            fig_line=px.line(grouped,x='Year',y='value',color='COMMODITY_SITC',title='Merchandise Imports (Line - Chart)')
+            fig_line=px.line(grouped,x='Year',y='value',markers=True,color='COMMODITY_SITC',title='Merchandise Imports (Line - Chart)')
             p2.plotly_chart(fig_line)
             fig_pie=px.pie(data,values='value',names='Year',title='Merchandise Imports (Pie - Chart)')
             p3.plotly_chart(fig_pie)
@@ -149,7 +177,7 @@ with st.spinner('Loading data...'):
             grouped=filtered_data.groupby(['Year','COMMODITY_SITC']).sum().reset_index()
             fig_bar=px.bar(grouped,x='Year',y='value',title=f'Merchandise Imports (Bar - Chart) for {commodity}')
             p1.plotly_chart(fig_bar)
-            fig_line=px.line(grouped,x='Year',y='value',title=f'Merchandise Imports (Line - Chart) for {commodity}')
+            fig_line=px.line(grouped,x='Year',y='value',marker=True,title=f'Merchandise Imports (Line - Chart) for {commodity}')
             p2.plotly_chart(fig_line)
             fig_pie=px.pie(data,values='value',names='Year',title='Merchandise Imports (Pie - Chart)')
             p3.plotly_chart(fig_pie)
@@ -159,7 +187,7 @@ with st.spinner('Loading data...'):
             grouped=data.groupby(['Year','COMMODITY_SITC']).sum().reset_index()
             fig_bar=px.bar(grouped,x='Year',y='value',color='COMMODITY_SITC',title='Merchandise Exports (Bar - Chart)')
             p1.plotly_chart(fig_bar)
-            fig_line=px.line(grouped,x='Year',y='value',color='COMMODITY_SITC',title='Merchandise Exports (Line - Chart)')
+            fig_line=px.line(grouped,x='Year',y='value',markers=True,color='COMMODITY_SITC',title='Merchandise Exports (Line - Chart)')
             p2.plotly_chart(fig_line)
             fig_pie=px.pie(data,values='value',names='Year',title='Merchandise Exports (Pie - Chart)')
             p3.plotly_chart(fig_pie)
@@ -168,7 +196,7 @@ with st.spinner('Loading data...'):
             grouped=filtered_data.groupby(['Year','COMMODITY_SITC']).sum().reset_index()
             fig_bar=px.bar(grouped,x='Year',y='value',title=f'Merchandise Exports (Bar - Chart) for {commodity}')
             p1.plotly_chart(fig_bar)
-            fig_line=px.line(grouped,x='Year',y='value',title=f'Merchandise Exports (Line - Chart) for {commodity}')
+            fig_line=px.line(grouped,x='Year',y='value',markers=True,title=f'Merchandise Exports (Line - Chart) for {commodity}')
             p2.plotly_chart(fig_line)
             fig_pie=px.pie(data,values='value',names='Year',title='Merchandise Exports (Pie - Chart)')
             p3.plotly_chart(fig_pie)
@@ -177,6 +205,7 @@ with st.spinner('Loading data...'):
 
     c3=st.columns(1)[0]
     c3.markdown('### Absolute Payment Proportions')
+    st.write('This section shows the proportion of payments in the dataset, including treemap, sunburst, and funnel charts. The treemap chart shows the proportion of payments by region, data item, export/import, or commodity. The sunburst chart shows the proportion of payments by region and year. The funnel chart shows the proportion of payments by region, data item, export/import, or commodity.')
 
     p4,p5,p6=st.columns(3)
 
@@ -196,21 +225,22 @@ with st.spinner('Loading data...'):
             filtered_data['value']=np.abs(filtered_data['value'])
             funnel=filtered_data.groupby(['Year','REGION']).sum().reset_index()
             state_grouped=filtered_data.groupby(['Year','REGION']).sum().reset_index()
-            fig_treemap=px.treemap(state_grouped,path=['REGION','Year'],values='value',title=f'Balance of Payments by State (Treemap) for {region}')
+            fig_treemap=px.treemap(state_grouped,path=['REGION','Year'],values='value',title=f'Balance of Payments (Treemap) for {region}')
             p4.plotly_chart(fig_treemap)
-            fig_sunburst=px.sunburst(state_grouped,path=['REGION','Year'],values='value',title=f'Balance of Payments by State (Sunburst) for {region}')
+            fig_sunburst=px.sunburst(state_grouped,path=['REGION','Year'],values='value',title=f'Balance of Payments (Sunburst) for {region}')
             p5.plotly_chart(fig_sunburst)
-            fig_funnel=px.funnel(funnel,x='value',y='REGION',color='Year',title=f'Balance of Payments by State (Funnel) for {region}')
+            fig_funnel=px.funnel(funnel,x='value',y='REGION',color='Year',title=f'Balance of Payments (Funnel) for {region}')
             p6.plotly_chart(fig_funnel)
     
     elif data_file=='General Balance of Payments':
         if data_item=='All':
             grouped=data.groupby(['Year','DATA_ITEM']).sum().reset_index()
             grouped['value']=np.abs(grouped['value'])
+            grouped['Reference']=grouped['DATA_ITEM'].str.split(' ').str[0]
             funnel=grouped.groupby(['Year','DATA_ITEM']).sum().reset_index()
             fig_treemap=px.treemap(grouped,path=['DATA_ITEM','Year'],values='value',title='General Balance of Payments (Treemap)')
             p4.plotly_chart(fig_treemap)
-            fig_sunburst=px.sunburst(grouped,path=['DATA_ITEM','Year'],values='value',title='General Balance of Payments (Sunburst)')
+            fig_sunburst=px.sunburst(grouped,path=['Reference','Year'],values='value',title='General Balance of Payments (Sunburst)')
             p5.plotly_chart(fig_sunburst)
             fig_funnel=px.funnel(funnel,x='value',y='DATA_ITEM',color='Year',title='General Balance of Payments (Funnel)')
             p6.plotly_chart(fig_funnel)
@@ -218,12 +248,13 @@ with st.spinner('Loading data...'):
             filtered_data=data[data['DATA_ITEM']==data_item]
             filtered_data['value']=np.abs(filtered_data['value'])
             grouped=filtered_data.groupby(['Year','DATA_ITEM']).sum().reset_index()
+            grouped['Reference']=grouped['DATA_ITEM'].str.split(' ').str[0]
             funnel=grouped.groupby(['Year','DATA_ITEM']).sum().reset_index()
-            fig_treemap=px.treemap(grouped,path=['DATA_ITEM','Year'],values='value',title=f'General Balance of Payments (Treemap) for {data_item}')
+            fig_treemap=px.treemap(grouped,path=['DATA_ITEM','Year'],values='value',title=f'Treemap for {data_item}')
             p4.plotly_chart(fig_treemap)
-            fig_sunburst=px.sunburst(grouped,path=['DATA_ITEM','Year'],values='value',title=f'General Balance of Payments (Sunburst) for {data_item}')
+            fig_sunburst=px.sunburst(grouped,path=['Reference','Year'],values='value',title=f'Sunburst for {data_item}')
             p5.plotly_chart(fig_sunburst)
-            fig_funnel=px.funnel(funnel,x='value',y='DATA_ITEM',color='Year',title=f'General Balance of Payments (Funnel) for {data_item}')
+            fig_funnel=px.funnel(funnel,x='value',y='DATA_ITEM',color='Year',title=f'Funnel for {data_item}')
             p6.plotly_chart(fig_funnel)
     elif data_file=='Export and Imports':
         if data_item=='All':
@@ -241,20 +272,21 @@ with st.spinner('Loading data...'):
             grouped=filtered_data.groupby(['Year','EXP_IMP']).sum().reset_index()
             grouped['value']=np.abs(grouped['value'])
             funnel=grouped.groupby(['Year','EXP_IMP']).sum().reset_index()
-            fig_treemap=px.treemap(grouped,path=['EXP_IMP','Year'],values='value',title=f'Export and Imports (Treemap) for {data_item}')
+            fig_treemap=px.treemap(grouped,path=['EXP_IMP','Year'],values='value',title=f'Treemap for {data_item}')
             p4.plotly_chart(fig_treemap)
-            fig_sunburst=px.sunburst(grouped,path=['EXP_IMP','Year'],values='value',title=f'Export and Imports (Sunburst) for {data_item}')
+            fig_sunburst=px.sunburst(grouped,path=['EXP_IMP','Year'],values='value',title=f'Sunburst for {data_item}')
             p5.plotly_chart(fig_sunburst)
-            fig_funnel=px.funnel(funnel,x='value',y='EXP_IMP',color='Year',title=f'Export and Imports (Funnel) for {data_item}')
+            fig_funnel=px.funnel(funnel,x='value',y='EXP_IMP',color='Year',title=f'Funnel for {data_item}')
             p6.plotly_chart(fig_funnel)
     elif data_file=='Merchandise Imports':
         if commodity=='All':
             grouped=data.groupby(['Year','COMMODITY_SITC']).sum().reset_index()
             grouped['value']=np.abs(grouped['value'])
+            grouped['Reference']=grouped['COMMODITY_SITC'].str.split(' ').str[:3].apply(lambda x: ' '.join(x))
             funnel=grouped.groupby(['Year','COMMODITY_SITC']).sum().reset_index()
             fig_treemap=px.treemap(grouped,path=['COMMODITY_SITC','Year'],values='value',title='Merchandise Imports (Treemap)')
             p4.plotly_chart(fig_treemap)
-            fig_sunburst=px.sunburst(grouped,path=['COMMODITY_SITC','Year'],values='value',title='Merchandise Imports (Sunburst)')
+            fig_sunburst=px.sunburst(grouped,path=['Reference','Year'],values='value',title='Merchandise Imports (Sunburst)')
             p5.plotly_chart(fig_sunburst)
             fig_funnel=px.funnel(funnel,x='value',y='COMMODITY_SITC',color='Year',title='Merchandise Imports (Funnel)')
             p6.plotly_chart(fig_funnel)
@@ -262,21 +294,23 @@ with st.spinner('Loading data...'):
             filtered_data=data[data['COMMODITY_SITC']==commodity]
             grouped=filtered_data.groupby(['Year','COMMODITY_SITC']).sum().reset_index()
             grouped['value']=np.abs(grouped['value'])
+            grouped['Reference']=grouped['COMMODITY_SITC'].str.split(' ').str[:3].apply(lambda x: ' '.join(x))
             funnel=grouped.groupby(['Year','COMMODITY_SITC']).sum().reset_index()
-            fig_treemap=px.treemap(grouped,path=['COMMODITY_SITC','Year'],values='value',title=f'Merchandise Imports (Treemap) for {commodity}')
+            fig_treemap=px.treemap(grouped,path=['COMMODITY_SITC','Year'],values='value',title=f'Treemap for {commodity}')
             p4.plotly_chart(fig_treemap)
-            fig_sunburst=px.sunburst(grouped,path=['COMMODITY_SITC','Year'],values='value',title=f'Merchandise Imports (Sunburst) for {commodity}')
+            fig_sunburst=px.sunburst(grouped,path=['Reference','Year'],values='value',title=f'Sunburst for {commodity}')
             p5.plotly_chart(fig_sunburst)
-            fig_funnel=px.funnel(funnel,x='value',y='COMMODITY_SITC',color='Year',title=f'Merchandise Imports (Funnel) for {commodity}')
+            fig_funnel=px.funnel(funnel,x='value',y='COMMODITY_SITC',color='Year',title=f'Funnel for {commodity}')
             p6.plotly_chart(fig_funnel)
     elif data_file=='Merchandise Exports':
         if commodity=='All':
             grouped=data.groupby(['Year','COMMODITY_SITC']).sum().reset_index()
             grouped['value']=np.abs(grouped['value'])
+            grouped['Reference']=grouped['COMMODITY_SITC'].str.split(' ').str[:3].apply(lambda x: ' '.join(x))
             funnel=grouped.groupby(['Year','COMMODITY_SITC']).sum().reset_index()
             fig_treemap=px.treemap(grouped,path=['COMMODITY_SITC','Year'],values='value',title='Merchandise Exports (Treemap)')
             p4.plotly_chart(fig_treemap)
-            fig_sunburst=px.sunburst(grouped,path=['COMMODITY_SITC','Year'],values='value',title='Merchandise Exports (Sunburst)')
+            fig_sunburst=px.sunburst(grouped,path=['Reference','Year'],values='value',title='Merchandise Exports (Sunburst)')
             p5.plotly_chart(fig_sunburst)
             fig_funnel=px.funnel(funnel,x='value',y='COMMODITY_SITC',color='Year',title='Merchandise Exports (Funnel)')
             p6.plotly_chart(fig_funnel)
@@ -284,16 +318,18 @@ with st.spinner('Loading data...'):
             filtered_data=data[data['COMMODITY_SITC']==commodity]
             grouped=filtered_data.groupby(['Year','COMMODITY_SITC']).sum().reset_index()
             grouped['value']=np.abs(grouped['value'])
+            grouped['Reference']=grouped['COMMODITY_SITC'].str.split(' ').str[:3].apply(lambda x: ' '.join(x))
             funnel=grouped.groupby(['Year','COMMODITY_SITC']).sum().reset_index()
-            fig_treemap=px.treemap(grouped,path=['COMMODITY_SITC','Year'],values='value',title=f'Merchandise Exports (Treemap) for {commodity}')
+            fig_treemap=px.treemap(grouped,path=['COMMODITY_SITC','Year'],values='value',title=f'Treemap for {commodity}')
             p4.plotly_chart(fig_treemap)
-            fig_sunburst=px.sunburst(grouped,path=['COMMODITY_SITC','Year'],values='value',title=f'Merchandise Exports (Sunburst) for {commodity}')
+            fig_sunburst=px.sunburst(grouped,path=['Reference','Year'],values='value',title=f'Sunburst for {commodity}')
             p5.plotly_chart(fig_sunburst)
-            fig_funnel=px.funnel(funnel,x='value',y='COMMODITY_SITC',color='Year',title=f'Merchandise Exports (Funnel) for {commodity}')
+            fig_funnel=px.funnel(funnel,x='value',y='COMMODITY_SITC',color='Year',title=f'Funnel for {commodity}')
             p6.plotly_chart(fig_funnel)
 
     c4=st.columns(1)[0]
     c4.markdown('### Distribution of Payments')
+    st.write('This section shows the distribution of payments in the dataset, including box and histogram charts. The box chart shows the distribution of payments by region, data item, export/import, or commodity. The histogram chart shows the frequency of payments in the dataset.')
     p7,p8=st.columns(2)
 
     if data_file=='Balance of Payments by State':
@@ -307,25 +343,27 @@ with st.spinner('Loading data...'):
         else:
             filtered_data=data[data['REGION']==region]
             filtered_data['value']=np.abs(filtered_data['value'])
-            fig_box=px.box(filtered_data,x='REGION',y='value',title=f'Balance of Payments by State (Box - Chart) for {region}')
+            fig_box=px.box(filtered_data,x='REGION',y='value',title=f'Balance of Payments (Box - Chart) for {region}')
             p7.plotly_chart(fig_box)
-            fig_hist=px.histogram(filtered_data,x='value',title=f'Balance of Payments by State (Histogram) for {region}')
+            fig_hist=px.histogram(filtered_data,x='value',title=f'Balance of Payments (Histogram) for {region}')
             p8.plotly_chart(fig_hist)
 
     elif data_file=='General Balance of Payments':
         if data_item=='All':
             grouped=data.groupby(['Year','DATA_ITEM']).sum().reset_index()
             grouped['value']=np.abs(grouped['value'])
-            fig_box=px.box(grouped,x='DATA_ITEM',y='value',title='General Balance of Payments (Box - Chart)')
+            grouped['Reference']=grouped['DATA_ITEM'].str.split(' ').str[0]
+            fig_box=px.box(grouped,x='Reference',y='value',labels='DATA_ITEM',title='General Balance of Payments (Box - Chart)')
             p7.plotly_chart(fig_box)
             fig_hist=px.histogram(grouped,x='value',title='General Balance of Payments (Histogram)')
             p8.plotly_chart(fig_hist)
         else:
             filtered_data=data[data['DATA_ITEM']==data_item]
             filtered_data['value']=np.abs(filtered_data['value'])
-            fig_box=px.box(filtered_data,x='DATA_ITEM',y='value',title=f'General Balance of Payments (Box - Chart) for {data_item}')
+            filtered_data['Reference']=filtered_data['DATA_ITEM'].str.split(' ').str[0]
+            fig_box=px.box(filtered_data,x='Reference',y='value',title=f'Box - Chart for {data_item}')
             p7.plotly_chart(fig_box)
-            fig_hist=px.histogram(filtered_data,x='value',title=f'General Balance of Payments (Histogram) for {data_item}')
+            fig_hist=px.histogram(filtered_data,x='value',title=f'Histogram) for {data_item}')
             p8.plotly_chart(fig_hist)
     elif data_file=='Export and Imports':
         if data_item=='All':
@@ -338,9 +376,9 @@ with st.spinner('Loading data...'):
         else:
             filtered_data=data[data['DATA_ITEM']==data_item]
             filtered_data['value']=np.abs(filtered_data['value'])
-            fig_box=px.box(filtered_data,x='EXP_IMP',y='value',title=f'Export and Imports (Box - Chart) for {data_item}')
+            fig_box=px.box(filtered_data,x='EXP_IMP',y='value',title=f'Box - Chart for {data_item}')
             p7.plotly_chart(fig_box)
-            fig_hist=px.histogram(filtered_data,x='value',title=f'Export and Imports (Histogram) for {data_item}')
+            fig_hist=px.histogram(filtered_data,x='value',title=f'Histogram for {data_item}')
             p8.plotly_chart(fig_hist)
     elif data_file=='Merchandise Imports':
         if commodity=='All':
@@ -353,9 +391,9 @@ with st.spinner('Loading data...'):
         else:
             filtered_data=data[data['COMMODITY_SITC']==commodity]
             filtered_data['value']=np.abs(filtered_data['value'])
-            fig_box=px.box(filtered_data,x='COMMODITY_SITC',y='value',title=f'Merchandise Imports (Box - Chart) for {commodity}')
+            fig_box=px.box(filtered_data,x='COMMODITY_SITC',y='value',title=f'Box - Chart for {commodity}')
             p7.plotly_chart(fig_box)
-            fig_hist=px.histogram(filtered_data,x='value',title=f'Merchandise Imports (Histogram) for {commodity}')
+            fig_hist=px.histogram(filtered_data,x='value',title=f'Histogram for {commodity}')
             p8.plotly_chart(fig_hist)
     elif data_file=='Merchandise Exports':
         if commodity=='All':
@@ -368,33 +406,23 @@ with st.spinner('Loading data...'):
         else:
             filtered_data=data[data['COMMODITY_SITC']==commodity]
             filtered_data['value']=np.abs(filtered_data['value'])
-            fig_box=px.box(filtered_data,x='COMMODITY_SITC',y='value',title=f'Merchandise Exports (Box - Chart) for {commodity}')
+            fig_box=px.box(filtered_data,x='COMMODITY_SITC',y='value',title=f'Box - Chart for {commodity}')
             p7.plotly_chart(fig_box)
-            fig_hist=px.histogram(filtered_data,x='value',title=f'Merchandise Exports (Histogram) for {commodity}')
+            fig_hist=px.histogram(filtered_data,x='value',title=f'Histogram for {commodity}')
             p8.plotly_chart(fig_hist)
 
-    c5=st.columns(1)[0]
-    c5.markdown('### Geographic') # Only for Balance of Payments by State
-    p9,p10=st.columns(2)
+
     if data_file=='Balance of Payments by State':
-        # get the latitude and longitude of each state using geopy
-        geolocator=geopy.Nominatim(user_agent='OpenStreetMap')
-        lat_lon=[]
-        for state in data['REGION'].unique():
-            location=geolocator.geocode(state)
-            if location is not None:
-                lat_lon.append([state,location.latitude,location.longitude])
-        lat_lon=pd.DataFrame(lat_lon,columns=['REGION','LAT','LON'])
-        data=pd.merge(data,lat_lon,on='REGION')
-
-        grouped=data.groupby(['Year','REGION','LAT','LON']).sum().reset_index()
+        c5=st.columns(1)[0]
+        c5.markdown('### Geographic') # Only for Balance of Payments by State
+        p9,p10=st.columns(2)
+        grouped=data.groupby(['Year','REGION','latitude','longitude']).sum().reset_index()
         grouped['value']=np.abs(grouped['value'])
-        st.map(grouped,size='value',latitude='LAT',longitude='LON')
+        st.map(grouped,size='value',latitude='latitude',longitude='longitude')
 
-    
     else:
-        p9.write('')
-        p10.write('')
+        c5=st.columns(1)[0]
+        c5.markdown('')
 
 
 with st.expander('View Full Raw Table Data'):
