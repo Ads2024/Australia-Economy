@@ -39,7 +39,7 @@ def read_gif(file_name):
 
 st.set_page_config(page_title='Australian Trade Dashboard',page_icon='📈',layout='wide')
 gif=read_gif('assets/Aus_gif.webp')
-st.markdown(f''''
+st.markdown(f'''
     <div style="display: flex; justify-content: center;">
         <img src="data:image/gif;base64,{gif}" style="width:10%;height:10%;object-fit:contain;">
     </div>
@@ -48,6 +48,7 @@ c1,c2=st.columns([0.07,1])
 c1.image('assets/australia.png',width=100)
 c2.title('Australian Trade Data')
 c2.markdown('Desc: This dashboard shows the trade data of Australia | socials: [LinkedIn](https://www.linkedin.com/in/adam-m-62a5b4168/)')
+
 
 dark_mode=st.toggle('Dark Mode')
 if dark_mode:
@@ -205,7 +206,7 @@ with st.spinner('Loading data...'):
 
     c3=st.columns(1)[0]
     c3.markdown('### Absolute Payment Proportions')
-    st.write('This section shows the proportion of payments in the dataset, including treemap, sunburst, and funnel charts. The treemap chart shows the proportion of payments by region, data item, export/import, or commodity. The sunburst chart shows the proportion of payments by region and year. The funnel chart shows the proportion of payments by region, data item, export/import, or commodity.')
+    st.markdown('- This section shows the proportion of payments in the dataset, including treemap, sunburst, and funnel charts. The treemap chart shows the proportion of payments by region, data item, export/import, or commodity. The sunburst chart shows the proportion of payments by region and year. The funnel chart shows the proportion of payments by region, data item, export/import, or commodity.')
 
     p4,p5,p6=st.columns(3)
 
@@ -329,7 +330,7 @@ with st.spinner('Loading data...'):
 
     c4=st.columns(1)[0]
     c4.markdown('### Distribution of Payments')
-    st.write('This section shows the distribution of payments in the dataset, including box and histogram charts. The box chart shows the distribution of payments by region, data item, export/import, or commodity. The histogram chart shows the frequency of payments in the dataset.')
+    st.markdown('- This section shows the distribution of payments in the dataset, including box and histogram charts. The box chart shows the distribution of payments by region, data item, export/import, or commodity. The histogram chart shows the frequency of payments in the dataset.')
     p7,p8=st.columns(2)
 
     if data_file=='Balance of Payments by State':
@@ -424,9 +425,14 @@ with st.spinner('Loading data...'):
         c5=st.columns(1)[0]
         c5.markdown('')
 
-
-with st.expander('View Full Raw Table Data'):
+    st.markdown('### Data Table')
     spreadsheet(data)
+
+with st.expander('Data Description'):
+    st.write(data.describe())
+
+st.markdown('### Data Source')
+st.markdown('Australian Bureau of Statistics (ABS)')
 
 
     
