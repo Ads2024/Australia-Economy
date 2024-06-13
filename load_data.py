@@ -101,10 +101,12 @@ def add_state_geo_codes(dataframe,column_name):
 
 
 def save_data(data,directory=None,filename=None):
+    if data is None or data.empty:
+        print(f'No data to save for {filename}')
+        return None
     path=filepath(directory,filename)
     try:
-        if data is not None:
-            data.to_csv(path,index=False)
+        data.to_csv(path,index=False)
     except Exception as e:
         print(e)
         return None
