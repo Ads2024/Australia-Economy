@@ -69,20 +69,22 @@ def plot_charts(data,file_type,filter_column=None,filter_value='All'):
 
     if filter_value=='All':
         grouped=data.groupby(['Year',file_type]).sum().reset_index()
-        fig_bar=px.bar(grouped,x='Year',y='value',color=file_type,title=f'{data_file} (Bar - Chart)')
+        pie=grouped[grouped['value']>0]
+        fig_bar=px.bar(grouped,x='Year',y='value',color=file_type,title=f'{data_file} Bar - Chart')
         p1.plotly_chart(fig_bar)
-        fig_line=px.line(grouped,x='Year',y='value',color=file_type,markers=True,title=f'{data_file} (Line - Chart)')
+        fig_line=px.line(grouped,x='Year',y='value',color=file_type,markers=True,title=f'{data_file} Line - Chart')
         p2.plotly_chart(fig_line)
-        fig_pie=px.pie(data,values='value',names=file_type,title=f'{data_file} (Pie - Chart)')
+        fig_pie=px.pie(pie,values='value',names=file_type,title=f'{data_file} Pie - Chart')
         p3.plotly_chart(fig_pie)
     else:
         filtered_data=data[data[filter_column]==filter_value]
+        pie=filtered_data[filtered_data['value']>0]
         grouped=filtered_data.groupby(['Year',file_type]).sum().reset_index()
-        fig_bar=px.bar(grouped,x='Year',y='value',color=file_type,title=f'{data_file} (Bar - Chart) for {filter_value}')
+        fig_bar=px.bar(grouped,x='Year',y='value',color=file_type,title=f'{data_file} Bar Chart')
         p1.plotly_chart(fig_bar)
-        fig_line=px.line(grouped,x='Year',y='value',color=file_type,markers=True,title=f'{data_file} (Line - Chart) for {filter_value}')
+        fig_line=px.line(grouped,x='Year',y='value',color=file_type,markers=True,title=f'{data_file} Line - Chart')
         p2.plotly_chart(fig_line)
-        fig_pie=px.pie(data,values='value',names=file_type,title=f'{data_file} (Pie - Chart)')
+        fig_pie=px.pie(pie,values='value',names=file_type,title=f'{data_file} Pie - Chart')
         p3.plotly_chart(fig_pie)
 
     return p1,p2,p3
@@ -104,11 +106,11 @@ def plot_proportion(data,file_type,filter_column=None,filter_value='All',slice=F
         filtered_data=data[data[filter_column]==filter_value]
         grouped=filtered_data.groupby(['Year',file_type]).sum().reset_index()
         grouped['value']=np.abs(grouped['value'])
-        fig_treemap=px.treemap(grouped,path=[file_type,'Year'],values='value',title=f'Treemap for {filter_value}')
+        fig_treemap=px.treemap(grouped,path=[file_type,'Year'],values='value',title=f'{data_file} (Treemap)')
         p4.plotly_chart(fig_treemap)
-        fig_sunburst=px.sunburst(grouped,path=[file_type,'Year'],values='value',title=f'Sunburst for {filter_value}')
+        fig_sunburst=px.sunburst(grouped,path=[file_type,'Year'],values='value',title=f'{data_file} (Sunburst)')
         p5.plotly_chart(fig_sunburst)
-        fig_funnel=px.funnel(grouped,x='value',y=file_type,color='Year',title=f'Funnel for {filter_value}')
+        fig_funnel=px.funnel(grouped,x='value',y=file_type,color='Year',title=f'{data_file} (Funnel)')
         p6.plotly_chart(fig_funnel)
     elif filter_value=='All' and slice==True and slice_value==0:
         grouped=data.groupby(['Year',file_type]).sum().reset_index()
@@ -125,11 +127,11 @@ def plot_proportion(data,file_type,filter_column=None,filter_value='All',slice=F
         grouped=filtered_data.groupby(['Year',file_type]).sum().reset_index()
         grouped['value']=np.abs(grouped['value'])
         grouped['Reference']=grouped[f'{filter_column}'].str.split(' ').str[slice_value]
-        fig_treemap=px.treemap(grouped,path=[file_type,'Year'],values='value',title=f'Treemap for {filter_value}')
+        fig_treemap=px.treemap(grouped,path=[file_type,'Year'],values='value',title=f'{data_file} (Treemap)')
         p4.plotly_chart(fig_treemap)
-        fig_sunburst=px.sunburst(grouped,path=['Reference','Year'],values='value',title=f'Sunburst for {filter_value}')
+        fig_sunburst=px.sunburst(grouped,path=['Reference','Year'],values='value',title=f'{data_file} (Treemap)')
         p5.plotly_chart(fig_sunburst)
-        fig_funnel=px.funnel(grouped,x='value',y=file_type,color='Year',title=f'Funnel for {filter_value}')
+        fig_funnel=px.funnel(grouped,x='value',y=file_type,color='Year',title=f'{data_file} (Treemap)')
         p6.plotly_chart(fig_funnel)
     elif filter_value=='All' and slice==True and slice_value>0:
         grouped=data.groupby(['Year',file_type]).sum().reset_index()
@@ -146,11 +148,11 @@ def plot_proportion(data,file_type,filter_column=None,filter_value='All',slice=F
         grouped=filtered_data.groupby(['Year',file_type]).sum().reset_index()
         grouped['value']=np.abs(grouped['value'])
         grouped['Reference']=grouped[f'{filter_column}'].str.split(' ').str[:slice_value].apply(lambda x: ' '.join(x))
-        fig_treemap=px.treemap(grouped,path=[file_type,'Year'],values='value',title=f'Treemap for {filter_value}')
+        fig_treemap=px.treemap(grouped,path=[file_type,'Year'],values='value',title=f'{data_file} (Treemap)')
         p4.plotly_chart(fig_treemap)
-        fig_sunburst=px.sunburst(grouped,path=['Reference','Year'],values='value',title=f'Sunburst for {filter_value}')
+        fig_sunburst=px.sunburst(grouped,path=['Reference','Year'],values='value',title=f'{data_file} (Sunburst)')
         p5.plotly_chart(fig_sunburst)
-        fig_funnel=px.funnel(grouped,x='value',y=file_type,color='Year',title=f'Funnel for {filter_value}')
+        fig_funnel=px.funnel(grouped,x='value',y=file_type,color='Year',title=f'{data_file} (Funnel)')
         p6.plotly_chart(fig_funnel)
     
     return p4,p5,p6
