@@ -1,3 +1,8 @@
+"""
+Created on Sun June 09 2024
+@Author: Adam M.
+"""
+
 import pandas as pd
 import numpy as np
 import streamlit as st
@@ -8,7 +13,9 @@ from mitosheet.streamlit.v1 import spreadsheet
 import plotly.figure_factory as ff
 import base64
  
-
+############################################
+# Functions to load data and plot charts
+############################################
 
 def data_path(directory=None, filename=None):
     if directory is None and filename is not None:
@@ -25,18 +32,24 @@ def split_date(df,column):
     else:
         df['Quarter']=df[column].str.split('-').str[1]
     return df
-
+# --------------------------------------------
+# Load CSS file
+# --------------------------------------------
 def load_css(file_name):
     with open(os.path.join(os.getcwd(),file_name)) as f:
         st.markdown(f'<style>{f.read()}</style>',unsafe_allow_html=True)
-
+# --------------------------------------------
+# Read GIF file
+# --------------------------------------------
 
 def read_gif(file_name):
     with open(os.path.join(os.getcwd(),file_name),'rb') as f:
         contents=f.read()
         data_url=base64.b64encode(contents).decode('utf-8')
     return data_url
-
+# --------------------------------------------
+# Load data from data directory
+# --------------------------------------------
 def load_data(data_file):
     data_files={
         'Balance of Payments by State':'balance_of_payments_states.csv',
@@ -48,7 +61,9 @@ def load_data(data_file):
     data= pd.read_csv(data_path('data',data_files[data_file]))
     data=split_date(data,'TIME_PERIOD')
     return data
-
+# --------------------------------------------
+# Plot different types of charts
+# --------------------------------------------
 def plot_charts(data,file_type,filter_column=None,filter_value='All'):
     p1,p2,p3=st.columns(3)
 
@@ -204,7 +219,10 @@ def titles(absolute_section=False,distribution_Section=False):
         return dist
     else:
         return None
-
+    
+############################################
+# Streamlit App starts here
+############################################
 
 st.set_page_config(page_title='Australian Trade Dashboard',page_icon='📈',layout='wide')
 gif=read_gif('assets/Aus_gif.webp')
