@@ -1,4 +1,4 @@
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://australia-trade-demo.streamlit.app/)
 # Balance of Trade - Australia
 Streamlit Dashboard looking at Australia balance of trade - using ABS API This is a fun excercise report,  visualizations of financial data across various dimensions such as state, time period, and type of financial activity (e.g., Balance of Payments, Exports, Imports).
 
