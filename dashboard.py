@@ -26,11 +26,11 @@ def split_date(df,column):
         df['Quarter']=df[column].str.split('-').str[1]
     return df
 # --------------------------------------------
-# Load CSS file
+# Load markdown file
 # --------------------------------------------
-def load_css(file_name):
+def markdown_readme(file_name):
     with open(os.path.join(os.getcwd(),file_name)) as f:
-        st.markdown(f'<style>{f.read()}</style>',unsafe_allow_html=True)
+        st.markdown(f.read())
 # --------------------------------------------
 # Read GIF file
 # --------------------------------------------
@@ -229,13 +229,13 @@ st.markdown(f'''
 c1,c2=st.columns([0.07,1])
 c1.image('assets/australia.png',width=100)
 c2.title('Australian Trade Data')
-c2.markdown('Desc: This dashboard shows the trade data of Australia | socials: [LinkedIn](https://www.linkedin.com/in/adam-m-62a5b4168/)')
+c2.markdown(' **Desc:** This dashboard shows the trade data of Australia | **socials:** [LinkedIn](https://www.linkedin.com/in/adam-m-62a5b4168/)')
 
     
-dark_mode=st.toggle('Dark Mode')
-if dark_mode:
-    load_css('styles.css')
-    st.write('Dark mode enabled')
+decription_mode=st.toggle('Show Description',value=False)
+if decription_mode:
+    with st.expander('Description'):
+        markdown_readme('README.md')
 
 
 with st.spinner('Loading data...'):
