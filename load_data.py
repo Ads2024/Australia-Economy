@@ -4,13 +4,14 @@ import requests as re
 import yaml
 from requests.exceptions import JSONDecodeError
 import geopy
+from datetime import datetime,timedelta
 
 STATE_BALANCE_PAYMENTS='balance_of_payments_states'
 GENERAL_BALANCE_PAYMENTS='general_balance_of_payments'
 TRADE='export_imports'
 IMPORT='merchandise_imports'
 EXPORT='merchandise_exports'
-
+NEXT_EXECUTION_FILE='next_execution.txt'
 queries=[STATE_BALANCE_PAYMENTS,GENERAL_BALANCE_PAYMENTS,TRADE,IMPORT,EXPORT]
 
 
@@ -112,19 +113,31 @@ def save_data(data,directory=None,filename=None):
         return None
     return print(f"Data saved at {path}")
 
+def should_run_data_load():
+    if not os.path.exists(NEXT_EXECUTION_FILE):
+        return True
+    with open(NEXT_EXECUTION_FILE,'r') as file:
+        next_execution_str=file.read().strip()
+        next_execution=datetime.strptime(next_execution_str,'%Y-%m-%d')
+        return datetime.now()>=next_execution
+    
+def updated_next_period():
+    next_execution=datetime.today()+timedelta(days=365)
+    with open(NEXT_EXECUTION_FILE,'w') as file:
+        file.write(next_execution.strftime('%Y-%m-%d'))
+    return next_execution
 
-def main():
-    for query in queries:
-        config=load_config('links.yaml',query)
-        data=get_abs_data(config)
-        data=structure_content(data)
-        if query==STATE_BALANCE_PAYMENTS:
-            data=add_state_geo_codes(data,'REGION')
-        save_data(data,'data',f'{query}.csv') 
+def data_load():
+    if should_run_data_load():   
+        for query in queries:  
+            config=load_config('links.yaml',query)
+            data=get_abs_data(config)
+            data=structure_content(data)
+            if query==STATE_BALANCE_PAYMENTS:
+                data=add_state_geo_codes(data,'REGION')
+            save_data(data,'data',f'{query}.csv')
+        updated_next_period() 
 
-
-if __name__=='__main__':
-    main()
 
 
 

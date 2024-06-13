@@ -12,18 +12,11 @@ import plotly.graph_objects as go
 from mitosheet.streamlit.v1 import spreadsheet
 import plotly.figure_factory as ff
 import base64
+from load_data import filepath,data_load
  
 ############################################
 # Functions to load data and plot charts
 ############################################
-
-def data_path(directory=None, filename=None):
-    if directory is None and filename is not None:
-        return os.path.join(os.getcwd(),filename)
-    if filename is None:
-        return os.path.join(os.getcwd(), directory)
-    return os.path.join(os.getcwd(), directory, filename)
-
 
 def split_date(df,column):
     df['Year']=df[column].str.split('-').str[0]
@@ -58,7 +51,7 @@ def load_data(data_file):
         'Merchandise Imports':'merchandise_imports.csv',
         'Merchandise Exports':'merchandise_exports.csv'
     }
-    data= pd.read_csv(data_path('data',data_files[data_file]))
+    data= pd.read_csv(filepath('data',data_files[data_file]))
     data=split_date(data,'TIME_PERIOD')
     return data
 # --------------------------------------------
@@ -223,7 +216,7 @@ def titles(absolute_section=False,distribution_Section=False):
         return None
     
 ############################################
-# Streamlit App starts here
+# Streamlit Global Configuration
 ############################################
 
 st.set_page_config(page_title='Australian Trade Dashboard',page_icon='📈',layout='wide')
@@ -238,7 +231,7 @@ c1.image('assets/australia.png',width=100)
 c2.title('Australian Trade Data')
 c2.markdown('Desc: This dashboard shows the trade data of Australia | socials: [LinkedIn](https://www.linkedin.com/in/adam-m-62a5b4168/)')
 
-
+    
 dark_mode=st.toggle('Dark Mode')
 if dark_mode:
     load_css('styles.css')
@@ -254,101 +247,108 @@ with st.spinner('Loading data...'):
         'Merchandise Exports':'merchandise_exports.csv'
     }
 
-
     data_file=st.selectbox('Select Data',data_files.keys(),help='Select one data file you want to load')
-    data= pd.read_csv(data_path('data',data_files[data_file]))
+    data= pd.read_csv(filepath('data',data_files[data_file]))
     data=split_date(data,'TIME_PERIOD')
 
+############################################
+# Streamlit App
+############################################
+
+    def app():
+        data_load()
+        if data_file=='Balance of Payments by State':
+            unique_regions=data['REGION'].unique()
+            choices=np.insert(unique_regions,0,'All')
+            region=st.selectbox('Select Region',choices)
+            m2,m3,m4=st.columns(3)
+            m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
+            m3.metric('Total value',f"${data['value'].sum():,.0f}")
+            m4.metric('Average value',f"${data['value'].mean():,.0f}")
+            plot_charts(data,file_type='REGION',filter_column='REGION',filter_value=region)
+            absolute_headings=titles(absolute_section=True)
+            plot_proportion(data,file_type='REGION',filter_column='REGION',filter_value=region)
+            distribution_headings=titles(distribution_Section=True)
+            plot_distribution(data,file_type='REGION',filter_column='REGION',filter_value=region)
+        elif data_file=='General Balance of Payments':
+            unique_data_items=data['DATA_ITEM'].unique()
+            choices=np.insert(unique_data_items,0,'All')
+            data_item=st.selectbox('Select Data Item',choices)
+            m2,m3,m4=st.columns(3)
+            m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
+            m3.metric('Total value',f"${data['value'].sum():,.0f}")
+            m4.metric('Average value',f"${data['value'].mean():,.0f}")
+            plot_charts(data,file_type='DATA_ITEM',filter_column='DATA_ITEM',filter_value=data_item)
+            absolute_headings=titles(absolute_section=True)
+            plot_proportion(data,file_type='DATA_ITEM',filter_column='DATA_ITEM',filter_value=data_item,slice=True,slice_value=0)
+            distribution_headings=titles(distribution_Section=True)
+            plot_distribution(data,file_type='DATA_ITEM',filter_column='DATA_ITEM',filter_value=data_item,slice=True,slice_value=0)
+        elif data_file=='Export and Imports':
+            unique_data_items=data['DATA_ITEM'].unique()
+            choices=np.insert(unique_data_items,0,'All')
+            data_item=st.selectbox('Select Data Item',choices)
+            m2,m3,m4=st.columns(3)
+            m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
+            m3.metric('Total value',f"${data['value'].sum():,.0f}")
+            m4.metric('Average value',f"${data['value'].mean():,.0f}")
+            plot_charts(data,file_type='EXP_IMP',filter_column='DATA_ITEM',filter_value=data_item)
+            absolute_headings=titles(absolute_section=True)
+            plot_proportion(data,file_type='EXP_IMP',filter_column='DATA_ITEM',filter_value=data_item)
+            distribution_headings=titles(distribution_Section=True)
+            plot_distribution(data,file_type='EXP_IMP',filter_column='DATA_ITEM',filter_value=data_item)           
+        elif data_file=='Merchandise Imports':
+            unique_commodities=data['COMMODITY_SITC'].unique()
+            choices=np.insert(unique_commodities,0,'All')
+            commodity=st.selectbox('Select Commodity',choices)
+            m2,m3,m4=st.columns(3)
+            m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
+            m3.metric('Total value',f"${data['value'].sum():,.0f}")
+            m4.metric('Average value',f"${data['value'].mean():,.0f}")
+            plot_charts(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity)
+            absolute_headings=titles(absolute_section=True)
+            plot_proportion(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity,slice=True,slice_value=3)
+            distribution_headings=titles(distribution_Section=True)
+            plot_distribution(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity,slice=True,slice_value=3)
+        elif data_file=='Merchandise Exports':
+            unique_commodities=data['COMMODITY_SITC'].unique()
+            choices=np.insert(unique_commodities,0,'All')
+            commodity=st.selectbox('Select Commodity',choices)
+            m2,m3,m4=st.columns(3)
+            m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
+            m3.metric('Total value',f"${data['value'].sum():,.0f}")
+            m4.metric('Average value',f"${data['value'].mean():,.0f}")
+            plot_charts(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity)
+            absolute_headings=titles(absolute_section=True)
+            plot_proportion(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity,slice=True,slice_value=3)
+            distribution_headings=titles(distribution_Section=True)
+            plot_distribution(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity,slice=True,slice_value=3)
+
+        
+
+        if data_file=='Balance of Payments by State':
+            c5=st.columns(1)[0]
+            c5.markdown('### Geographic') 
+            p9,p10=st.columns(2)
+            grouped=data.groupby(['Year','REGION','latitude','longitude']).sum().reset_index()
+            grouped['value']=np.abs(grouped['value'])
+            st.map(grouped,size='value',latitude='latitude',longitude='longitude')
+
+        else:
+            c5=st.columns(1)[0]
+            c5.markdown('')
+
+        st.markdown('### Data Table')
+        spreadsheet(data)
+
+        with st.expander('Data Description'):
+            st.write(data.describe())
+
+        st.markdown('### Data Source')
+        st.markdown('Australian Bureau of Statistics (ABS)')
 
 
-    if data_file=='Balance of Payments by State':
-        unique_regions=data['REGION'].unique()
-        choices=np.insert(unique_regions,0,'All')
-        region=st.selectbox('Select Region',choices)
-        m2,m3,m4=st.columns(3)
-        m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
-        m3.metric('Total value',f"${data['value'].sum():,.0f}")
-        m4.metric('Average value',f"${data['value'].mean():,.0f}")
-        plot_charts(data,file_type='REGION',filter_column='REGION',filter_value=region)
-        absolute_headings=titles(absolute_section=True)
-        plot_proportion(data,file_type='REGION',filter_column='REGION',filter_value=region)
-        distribution_headings=titles(distribution_Section=True)
-        plot_distribution(data,file_type='REGION',filter_column='REGION',filter_value=region)
-    elif data_file=='General Balance of Payments':
-        unique_data_items=data['DATA_ITEM'].unique()
-        choices=np.insert(unique_data_items,0,'All')
-        data_item=st.selectbox('Select Data Item',choices)
-        m2,m3,m4=st.columns(3)
-        m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
-        m3.metric('Total value',f"${data['value'].sum():,.0f}")
-        m4.metric('Average value',f"${data['value'].mean():,.0f}")
-        plot_charts(data,file_type='DATA_ITEM',filter_column='DATA_ITEM',filter_value=data_item)
-        absolute_headings=titles(absolute_section=True)
-        plot_proportion(data,file_type='DATA_ITEM',filter_column='DATA_ITEM',filter_value=data_item,slice=True,slice_value=0)
-        distribution_headings=titles(distribution_Section=True)
-        plot_distribution(data,file_type='DATA_ITEM',filter_column='DATA_ITEM',filter_value=data_item,slice=True,slice_value=0)
-    elif data_file=='Export and Imports':
-         unique_data_items=data['DATA_ITEM'].unique()
-         choices=np.insert(unique_data_items,0,'All')
-         data_item=st.selectbox('Select Data Item',choices)
-         m2,m3,m4=st.columns(3)
-         m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
-         m3.metric('Total value',f"${data['value'].sum():,.0f}")
-         m4.metric('Average value',f"${data['value'].mean():,.0f}")
-         plot_charts(data,file_type='EXP_IMP',filter_column='DATA_ITEM',filter_value=data_item)
-         absolute_headings=titles(absolute_section=True)
-         plot_proportion(data,file_type='EXP_IMP',filter_column='DATA_ITEM',filter_value=data_item)
-         distribution_headings=titles(distribution_Section=True)
-         plot_distribution(data,file_type='EXP_IMP',filter_column='DATA_ITEM',filter_value=data_item)           
-    elif data_file=='Merchandise Imports':
-         unique_commodities=data['COMMODITY_SITC'].unique()
-         choices=np.insert(unique_commodities,0,'All')
-         commodity=st.selectbox('Select Commodity',choices)
-         m2,m3,m4=st.columns(3)
-         m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
-         m3.metric('Total value',f"${data['value'].sum():,.0f}")
-         m4.metric('Average value',f"${data['value'].mean():,.0f}")
-         plot_charts(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity)
-         absolute_headings=titles(absolute_section=True)
-         plot_proportion(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity,slice=True,slice_value=3)
-         distribution_headings=titles(distribution_Section=True)
-         plot_distribution(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity,slice=True,slice_value=3)
-    elif data_file=='Merchandise Exports':
-         unique_commodities=data['COMMODITY_SITC'].unique()
-         choices=np.insert(unique_commodities,0,'All')
-         commodity=st.selectbox('Select Commodity',choices)
-         m2,m3,m4=st.columns(3)
-         m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
-         m3.metric('Total value',f"${data['value'].sum():,.0f}")
-         m4.metric('Average value',f"${data['value'].mean():,.0f}")
-         plot_charts(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity)
-         absolute_headings=titles(absolute_section=True)
-         plot_proportion(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity,slice=True,slice_value=3)
-         distribution_headings=titles(distribution_Section=True)
-         plot_distribution(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity,slice=True,slice_value=3)
-
-    
-
-    if data_file=='Balance of Payments by State':
-        c5=st.columns(1)[0]
-        c5.markdown('### Geographic') 
-        p9,p10=st.columns(2)
-        grouped=data.groupby(['Year','REGION','latitude','longitude']).sum().reset_index()
-        grouped['value']=np.abs(grouped['value'])
-        st.map(grouped,size='value',latitude='latitude',longitude='longitude')
-
-    else:
-        c5=st.columns(1)[0]
-        c5.markdown('')
-
-    st.markdown('### Data Table')
-    spreadsheet(data)
-
-with st.expander('Data Description'):
-    st.write(data.describe())
-
-st.markdown('### Data Source')
-st.markdown('Australian Bureau of Statistics (ABS)')
+if __name__=='__main__':
+    app()
 
 
     
