@@ -114,7 +114,7 @@ def plot_charts(data,file_type,filter_column=None,filter_value='All',slice=False
         filtered_data=data[data[filter_column]==filter_value]
         grouped=filtered_data.groupby(['Year',file_type]).sum().reset_index()
         grouped['Reference']=grouped[f'{filter_column}'].str.split(' ').str[:slice_value].apply(lambda x: ' '.join(x))
-        pie=filtered_data[filtered_data['value']>0]
+        pie=grouped[grouped['value']>0]
         fig_bar=px.bar(grouped,x='Year',y='value',color='Reference',title=f'{data_file} Bar Chart')
         p1.plotly_chart(fig_bar)
         fig_line=px.line(grouped,x='Year',y='value',color='Reference',markers=True,title=f'{data_file} Line - Chart')
