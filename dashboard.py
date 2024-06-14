@@ -57,10 +57,10 @@ def load_data(data_file):
 # --------------------------------------------
 # Plot different types of charts
 # --------------------------------------------
-def plot_charts(data,file_type,filter_column=None,filter_value='All'):
+def plot_charts(data,file_type,filter_column=None,filter_value='All',slice=False,slice_value=0):
     p1,p2,p3=st.columns(3)
 
-    if filter_value=='All':
+    if filter_value=='All'and slice==False:
         grouped=data.groupby(['Year',file_type]).sum().reset_index()
         pie=grouped[grouped['value']>0]
         fig_bar=px.bar(grouped,x='Year',y='value',color=file_type,title=f'{data_file} Bar - Chart')
@@ -69,7 +69,7 @@ def plot_charts(data,file_type,filter_column=None,filter_value='All'):
         p2.plotly_chart(fig_line)
         fig_pie=px.pie(pie,values='value',names=file_type,title=f'{data_file} Pie - Chart')
         p3.plotly_chart(fig_pie)
-    else:
+    elif filter_value!='All' and slice==False:
         filtered_data=data[data[filter_column]==filter_value]
         pie=filtered_data[filtered_data['value']>0]
         grouped=filtered_data.groupby(['Year',file_type]).sum().reset_index()
@@ -78,6 +78,48 @@ def plot_charts(data,file_type,filter_column=None,filter_value='All'):
         fig_line=px.line(grouped,x='Year',y='value',color=file_type,markers=True,title=f'{data_file} Line - Chart')
         p2.plotly_chart(fig_line)
         fig_pie=px.pie(pie,values='value',names=file_type,title=f'{data_file} Pie - Chart')
+        p3.plotly_chart(fig_pie)
+    elif filter_value=='All' and slice==True and slice_value==0:
+        grouped=data.groupby(['Year',file_type]).sum().reset_index()
+        grouped['Reference']=grouped[f'{filter_column}'].str.split(' ').str[slice_value]
+        pie=grouped[grouped['value']>0]
+        fig_bar=px.bar(grouped,x='Year',y='value',color='Reference',title=f'{data_file} Bar - Chart')
+        p1.plotly_chart(fig_bar)
+        fig_line=px.line(grouped,x='Year',y='value',color='Reference',markers=True,title=f'{data_file} Line - Chart')
+        p2.plotly_chart(fig_line)
+        fig_pie=px.pie(pie,values='value',names='Reference',title=f'{data_file} Pie - Chart')
+        p3.plotly_chart(fig_pie)
+    elif filter_value!='All' and slice==True and slice_value==0:
+        filtered_data=data[data[filter_column]==filter_value]
+        grouped=filtered_data.groupby(['Year',file_type]).sum().reset_index()
+        grouped['Reference']=grouped[f'{filter_column}'].str.split(' ').str[slice_value]
+        pie=filtered_data[filtered_data['value']>0]
+        fig_bar=px.bar(grouped,x='Year',y='value',color='Reference',title=f'{data_file} Bar Chart')
+        p1.plotly_chart(fig_bar)
+        fig_line=px.line(grouped,x='Year',y='value',color='Reference',markers=True,title=f'{data_file} Line - Chart')
+        p2.plotly_chart(fig_line)
+        fig_pie=px.pie(pie,values='value',names='Reference',title=f'{data_file} Pie - Chart')
+        p3.plotly_chart(fig_pie)
+    elif filter_value=='All' and slice==True and slice_value>0:
+        grouped=data.groupby(['Year',file_type]).sum().reset_index()
+        grouped['Reference']=grouped[f'{filter_column}'].str.split(' ').str[:slice_value].apply(lambda x: ' '.join(x))
+        pie=grouped[grouped['value']>0]
+        fig_bar=px.bar(grouped,x='Year',y='value',color='Reference',title=f'{data_file} Bar - Chart')
+        p1.plotly_chart(fig_bar)
+        fig_line=px.line(grouped,x='Year',y='value',color='Reference',markers=True,title=f'{data_file} Line - Chart')
+        p2.plotly_chart(fig_line)
+        fig_pie=px.pie(pie,values='value',names='Reference',title=f'{data_file} Pie - Chart')
+        p3.plotly_chart(fig_pie)
+    elif filter_value!='All' and slice==True and slice_value>0:
+        filtered_data=data[data[filter_column]==filter_value]
+        grouped=filtered_data.groupby(['Year',file_type]).sum().reset_index()
+        grouped['Reference']=grouped[f'{filter_column}'].str.split(' ').str[:slice_value].apply(lambda x: ' '.join(x))
+        pie=filtered_data[filtered_data['value']>0]
+        fig_bar=px.bar(grouped,x='Year',y='value',color='Reference',title=f'{data_file} Bar Chart')
+        p1.plotly_chart(fig_bar)
+        fig_line=px.line(grouped,x='Year',y='value',color='Reference',markers=True,title=f'{data_file} Line - Chart')
+        p2.plotly_chart(fig_line)
+        fig_pie=px.pie(pie,values='value',names='Reference',title=f'{data_file} Pie - Chart')
         p3.plotly_chart(fig_pie)
 
     return p1,p2,p3
@@ -226,7 +268,7 @@ st.markdown(f'''
         <img src="data:image/gif;base64,{gif}" style="width:10%;height:10%;object-fit:contain;">
     </div>
     ''',unsafe_allow_html=True)
-c1,c2=st.columns([0.07,1])
+c1,c2=st.columns([0.10,1])
 c1.image('assets/australia.png',width=100)
 c2.title('Australian Trade Data')
 c2.markdown(' **Desc:** This dashboard shows the trade data of Australia | **socials:** [LinkedIn](https://www.linkedin.com/in/adam-m-62a5b4168/)')
@@ -278,7 +320,7 @@ with st.spinner('Loading data...'):
             m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
             m3.metric('Total value',f"${data['value'].sum():,.0f}")
             m4.metric('Average value',f"${data['value'].mean():,.0f}")
-            plot_charts(data,file_type='DATA_ITEM',filter_column='DATA_ITEM',filter_value=data_item)
+            plot_charts(data,file_type='DATA_ITEM',filter_column='DATA_ITEM',filter_value=data_item,slice=True,slice_value=3)
             absolute_headings=titles(absolute_section=True)
             plot_proportion(data,file_type='DATA_ITEM',filter_column='DATA_ITEM',filter_value=data_item,slice=True,slice_value=0)
             distribution_headings=titles(distribution_Section=True)
@@ -304,7 +346,7 @@ with st.spinner('Loading data...'):
             m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
             m3.metric('Total value',f"${data['value'].sum():,.0f}")
             m4.metric('Average value',f"${data['value'].mean():,.0f}")
-            plot_charts(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity)
+            plot_charts(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity,slice=True,slice_value=3)
             absolute_headings=titles(absolute_section=True)
             plot_proportion(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity,slice=True,slice_value=3)
             distribution_headings=titles(distribution_Section=True)
@@ -317,7 +359,7 @@ with st.spinner('Loading data...'):
             m2.metric('Performance to pevious year',f"{data['value'].pct_change().iloc[-1]:.2%}",delta=f"{data['value'].pct_change().iloc[-1]:.3%}",delta_color='normal')
             m3.metric('Total value',f"${data['value'].sum():,.0f}")
             m4.metric('Average value',f"${data['value'].mean():,.0f}")
-            plot_charts(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity)
+            plot_charts(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity,slice=True,slice_value=3)
             absolute_headings=titles(absolute_section=True)
             plot_proportion(data,file_type='COMMODITY_SITC',filter_column='COMMODITY_SITC',filter_value=commodity,slice=True,slice_value=3)
             distribution_headings=titles(distribution_Section=True)
